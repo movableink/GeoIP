@@ -18,6 +18,7 @@ using namespace native;
 
 extern "C" {
   static void InitAll(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
+    v8::Local<v8::Context> context = exports->CreationContext();
     Nan::HandleScope scope;
 
     // Initialize Modules
@@ -34,11 +35,11 @@ extern "C" {
     v8::Local<FunctionTemplate> check = Nan::New<v8::FunctionTemplate>(utils::check);
     v8::Local<FunctionTemplate> isString = Nan::New<v8::FunctionTemplate>(utils::isString);
 
-    exports->Set(Nan::New("check").ToLocalChecked(),
-      check->GetFunction());
-    exports->Set(Nan::New("isString").ToLocalChecked(),
-      isString->GetFunction());
-    exports->Set(Nan::New("libgeoip").ToLocalChecked(),
+    exports->Set(context, Nan::New("check").ToLocalChecked(),
+                 check->GetFunction(context).ToLocalChecked());
+    exports->Set(context, Nan::New("isString").ToLocalChecked(),
+                 isString->GetFunction(context).ToLocalChecked());
+    exports->Set(context, Nan::New("libgeoip").ToLocalChecked(),
         Nan::New(GeoIP_lib_version()).ToLocalChecked());
 
   }

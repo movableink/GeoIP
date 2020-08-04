@@ -20,6 +20,7 @@ NetSpeed::~NetSpeed() {
 Nan::Persistent<v8::Function> NetSpeed::constructor;
 
 void NetSpeed::Init(v8::Local<v8::Object> exports) {
+    v8::Local<v8::Context> context = exports->CreationContext();
     Nan::HandleScope scope;
 
     v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
@@ -29,8 +30,8 @@ void NetSpeed::Init(v8::Local<v8::Object> exports) {
     tpl->PrototypeTemplate()->Set(Nan::New("lookupSync").ToLocalChecked(),
                                   Nan::New<v8::FunctionTemplate>(lookupSync));
 
-    constructor.Reset(tpl->GetFunction());
-    exports->Set(Nan::New("NetSpeed").ToLocalChecked(), tpl->GetFunction());
+    constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
+    exports->Set(Nan::New("NetSpeed").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
 }
 
 NAN_METHOD(NetSpeed::New) {
@@ -38,8 +39,9 @@ NAN_METHOD(NetSpeed::New) {
 
     NetSpeed *n = new NetSpeed();
 
-    const char * file_cstr = *Nan::Utf8String(info[0]->ToString());
-    bool cache_on = info[1]->ToBoolean()->Value();
+    v8::Isolate* isolate = info.GetIsolate();
+    const char * file_cstr = *Nan::Utf8String(info[0]->ToString(isolate));
+    bool cache_on = info[1]->ToBoolean(isolate)->Value();
 
     n->db = GeoIP_open(file_cstr, cache_on ? GEOIP_MEMORY_CACHE : GEOIP_STANDARD);
 
