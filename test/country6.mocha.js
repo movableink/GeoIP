@@ -76,7 +76,7 @@ describe('Country6', function() {
             });
 
             // Test file doesn't have any IPs that have associated DNS name, travis can't stub hosts
-            it.skip('should find location by demain', function(done) {
+            it.skip('should find location by domain', function(done) {
                 instance.lookup('www.google.com', function(err, data) {
                     should.not.exist(err);
                     should.exist(data);
