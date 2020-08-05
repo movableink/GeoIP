@@ -35,11 +35,11 @@ extern "C" {
     v8::Local<FunctionTemplate> check = Nan::New<v8::FunctionTemplate>(utils::check);
     v8::Local<FunctionTemplate> isString = Nan::New<v8::FunctionTemplate>(utils::isString);
 
-    exports->Set(context, Nan::New("check").ToLocalChecked(),
+    Nan::Set(exports, Nan::New("check").ToLocalChecked(),
                  check->GetFunction(context).ToLocalChecked());
-    exports->Set(context, Nan::New("isString").ToLocalChecked(),
+    Nan::Set(exports, Nan::New("isString").ToLocalChecked(),
                  isString->GetFunction(context).ToLocalChecked());
-    exports->Set(context, Nan::New("libgeoip").ToLocalChecked(),
+    Nan::Set(exports, Nan::New("libgeoip").ToLocalChecked(),
         Nan::New(GeoIP_lib_version()).ToLocalChecked());
 
   }

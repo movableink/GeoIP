@@ -30,7 +30,7 @@ void Org::Init(v8::Local<v8::Object> exports) {
                                 Nan::New<v8::FunctionTemplate>(lookupSync));
 
   constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
-  exports->Set(Nan::New("Org").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
+  Nan::Set(exports, Nan::New("Org").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
 }
 
 NAN_METHOD(Org::New) {
@@ -38,9 +38,9 @@ NAN_METHOD(Org::New) {
 
   Org *o = new Org();
 
-  v8::Isolate* isolate = info.GetIsolate();
-  const char * file_cstr = *Nan::Utf8String(info[0]->ToString(isolate));
-  bool cache_on = info[1]->ToBoolean(isolate)->Value();
+  Nan::Utf8String utf8_value(info[0]);
+  const char * file_cstr = *utf8_value;
+  bool cache_on = info[1]->ToBoolean(Isolate::GetCurrent())->Value();
 
   o->db = GeoIP_open(file_cstr, cache_on?GEOIP_MEMORY_CACHE:GEOIP_STANDARD);
 

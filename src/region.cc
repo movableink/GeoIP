@@ -32,16 +32,16 @@ void Region::Init(v8::Local<v8::Object> exports) {
                                 Nan::New<v8::FunctionTemplate>(lookupSync));
 
   constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
-  exports->Set(Nan::New("Region").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
+  Nan::Set(exports, Nan::New("Region").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
 }
 
 NAN_METHOD(Region::New) {
   Nan::HandleScope scope;
   Region *r = new Region();
 
-  v8::Isolate* isolate = info.GetIsolate();
-  const char * file_cstr = *Nan::Utf8String(info[0]->ToString(isolate));
-  bool cache_on = info[1]->ToBoolean(isolate)->Value();
+  Nan::Utf8String utf8_value(info[0]);
+  const char * file_cstr = *utf8_value;
+  bool cache_on = info[1]->ToBoolean(Isolate::GetCurrent())->Value();
 
   r->db = GeoIP_open(file_cstr, cache_on ? GEOIP_MEMORY_CACHE : GEOIP_STANDARD);
 
@@ -80,9 +80,9 @@ NAN_METHOD(Region::lookupSync) {
   GeoIPRegion *region = GeoIP_region_by_ipnum(r->db, ipnum);
 
   if (region) {
-    data->Set(Nan::New<String>("country_code").ToLocalChecked(),
+    Nan::Set(data, Nan::New<String>("country_code").ToLocalChecked(),
       Nan::New<String>(region->country_code).ToLocalChecked());
-    data->Set(Nan::New<String>("region").ToLocalChecked(),
+    Nan::Set(data, Nan::New<String>("region").ToLocalChecked(),
       Nan::New<String>(region->region).ToLocalChecked());
     GeoIPRegion_delete(region);
     info.GetReturnValue().Set(data);

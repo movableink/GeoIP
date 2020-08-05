@@ -31,7 +31,7 @@ void Country::Init(v8::Local<v8::Object> exports) {
                                 Nan::New<v8::FunctionTemplate>(lookupSync));
 
   constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
-  exports->Set(Nan::New("Country").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
+  Nan::Set(exports, Nan::New("Country").ToLocalChecked(), tpl->GetFunction(context).ToLocalChecked());
 }
 
 NAN_METHOD(Country::New) {
@@ -39,9 +39,9 @@ NAN_METHOD(Country::New) {
 
   Country *c = new Country();
 
-  v8::Isolate* isolate = info.GetIsolate();
-  const char * file_cstr = *Nan::Utf8String(info[0]->ToString(isolate));
-  bool cache_on = info[1]->ToBoolean(isolate)->Value();
+  Nan::Utf8String utf8_value(info[0]);
+  const char * file_cstr = *utf8_value;
+  bool cache_on = info[1]->ToBoolean(Isolate::GetCurrent())->Value();
 
   c->db = GeoIP_open(file_cstr, cache_on?GEOIP_MEMORY_CACHE:GEOIP_STANDARD);
 
@@ -81,10 +81,10 @@ NAN_METHOD(Country::lookupSync) {
     } else {
       char *name = _GeoIP_iso_8859_1__utf8(GeoIP_country_name[country_id]);
 
-      data->Set(Nan::New("country_name").ToLocalChecked(), Nan::New(name).ToLocalChecked());
-      data->Set(Nan::New("country_code").ToLocalChecked(), Nan::New(GeoIP_country_code[country_id]).ToLocalChecked());
-      data->Set(Nan::New("country_code3").ToLocalChecked(), Nan::New(GeoIP_country_code3[country_id]).ToLocalChecked());
-      data->Set(Nan::New("continent_code").ToLocalChecked(), Nan::New(GeoIP_country_continent[country_id]).ToLocalChecked());
+      Nan::Set(data, Nan::New("country_name").ToLocalChecked(), Nan::New(name).ToLocalChecked());
+      Nan::Set(data, Nan::New("country_code").ToLocalChecked(), Nan::New(GeoIP_country_code[country_id]).ToLocalChecked());
+      Nan::Set(data, Nan::New("country_code3").ToLocalChecked(), Nan::New(GeoIP_country_code3[country_id]).ToLocalChecked());
+      Nan::Set(data, Nan::New("continent_code").ToLocalChecked(), Nan::New(GeoIP_country_continent[country_id]).ToLocalChecked());
 
       free(name);
 

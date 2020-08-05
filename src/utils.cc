@@ -18,7 +18,6 @@ namespace native {
         }
 
         NAN_METHOD(check) {
-            v8::Isolate* isolate = info.GetIsolate();
             Nan::HandleScope scope;
 
             //Local<Value> edition = Nan::New(Nan::Null());
@@ -27,7 +26,8 @@ namespace native {
             //size_t bc;
             //NanCString(info[0], &bc, file_cstr, size);
 
-            const char * file_cstr = *Nan::Utf8String(info[0]->ToString(isolate));
+            Nan::Utf8String utf8_value(info[0]);
+            const char * file_cstr = *utf8_value;
 
             GeoIP *db = GeoIP_open(file_cstr, GEOIP_STANDARD);
 
