@@ -1,8 +1,8 @@
 {
   "name": "@movable/geoip",
   "description": "GeoIP binding for node",
-  "version": "0.8.0",
-  "homepage": "http://github.com/kuno/GeoIP",
+  "version": "0.9.0",
+  "homepage": "http://github.com/movableink/GeoIP",
   "author": "Guan 'kuno' Qing <neokuno at Gmail dot com>",
   "contributors": [
     "Vladimir Dronnikov <dronnikov@gmail.com>",
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kuno/GeoIP.git"
+    "url": "git://github.com/movableink/GeoIP.git"
   },
   "keywords": [
     "geoip",
@@ -50,7 +50,7 @@
   ],
   "bugs": {
     "mail": "neokuno@gmail.com",
-    "url": "http://github.com/kuno/GeoIP/issues"
+    "url": "http://github.com/movableink/GeoIP/issues"
   },
   "license": "LGPL-2.1",
   "main": "index.js",
