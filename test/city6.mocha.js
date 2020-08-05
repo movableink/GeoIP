@@ -17,7 +17,7 @@ var should = chai.should();
 
 var geoip = require('../index.js');
 var City6 = geoip.City6;
-var file = path.resolve(__dirname, '../database/GeoLiteCityv6.dat');
+var file = path.resolve(__dirname, '../database/GeoLiteCityIPv6.dat');
 
 describe('City6', function() {
     describe('Instance', function() {
@@ -43,7 +43,7 @@ describe('City6', function() {
             setTimeout(done, 1);
         });
 
-        describe('Synchrouns Lookup', function() {
+        describe('Synchronous Lookup', function() {
             it('should throw error when input is not a string', function(done) {
                 try {
                     instance.lookupSync(null);
@@ -53,20 +53,21 @@ describe('City6', function() {
                 }
             });
 
-            it('should can find location by domain', function(done) {
+            // Test file doesn't have any IPs that have associated DNS name, travis can't stub hosts
+            it.skip('should can find location by domain', function(done) {
                 var data = instance.lookupSync('www.google.com');
                 data.should.be.a('object');
                 setTimeout(done, 1);
             });
 
             it('should can find location by ip address', function(done) {
-                var data = instance.lookupSync('2406:a000:f0ff:fffe::122d');
+                var data = instance.lookupSync('2001:200::');
                 data.should.be.a('object');
                 setTimeout(done, 1);
             });
         });
 
-        describe('Asynchrouns Lookup', function() {
+        describe('Asynchronous Lookup', function() {
             it('should return error when input is not a string', function(done) {
                 instance.lookup(null, function(err, data) {
                     should.exist(err);
@@ -74,7 +75,8 @@ describe('City6', function() {
                 });
             });
 
-            it('should can find location by domain', function(done) {
+            // Test file doesn't have any IPs that have associated DNS name, travis can't stub hosts
+            it.skip('should can find location by domain', function(done) {
                 instance.lookup('www.google.com', function(err, data) {
                     should.not.exist(err);
                     should.exist(data);
@@ -84,7 +86,7 @@ describe('City6', function() {
             });
 
             it('should can find location by ip address', function(done) {
-                instance.lookup('2607:f0d0:1002:0051:0000:0000:0000:0004', function(err, data) {
+                instance.lookup('2001:200::', function(err, data) {
                     should.not.exist(err);
                     should.exist(data);
                     data.should.be.an('object');

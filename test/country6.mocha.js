@@ -53,14 +53,15 @@ describe('Country6', function() {
                 }
             });
 
-            it('should find location by domain', function(done) {
+            // Test file doesn't have any IPs that have associated DNS name, travis can't stub hosts
+            it.skip('should find location by domain', function(done) {
                 var data = instance.lookupSync('www.google.com');
                 data.should.be.a('object');
                 setTimeout(done, 1);
             });
 
             it('should find location by ip address', function(done) {
-                var data = instance.lookupSync('2406:a000:f0ff:fffe::122d');
+                var data = instance.lookupSync('2001:200::');
                 data.should.be.a('object');
                 setTimeout(done, 1);
             });
@@ -74,7 +75,8 @@ describe('Country6', function() {
                 });
             });
 
-            it('should find location by demain', function(done) {
+            // Test file doesn't have any IPs that have associated DNS name, travis can't stub hosts
+            it.skip('should find location by demain', function(done) {
                 instance.lookup('www.google.com', function(err, data) {
                     should.not.exist(err);
                     should.exist(data);
@@ -84,7 +86,7 @@ describe('Country6', function() {
             });
 
             it('should find location by ip address', function(done) {
-                instance.lookup('2607:f0d0:1002:0051:0000:0000:0000:0004', function(err, data) {
+                instance.lookup('2001:200::', function(err, data) {
                     should.not.exist(err);
                     should.exist(data);
                     data.should.be.an('object');
