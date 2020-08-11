@@ -47,9 +47,9 @@ describe('Check database file type', function() {
         });
     });
 
-    describe(path.resolve(__dirname, '../database/GeoLiteCity.dat'), function() {
+    describe(path.resolve(__dirname, '../database/GeoIPCity.dat'), function() {
         it('is city db', function(done) {
-            var file = path.resolve(__dirname, '../database/GeoLiteCity.dat');
+            var file = path.resolve(__dirname, '../database/GeoIPCity.dat');
             var type = geoip.check(file);
 
             type.should.equal('city');
@@ -57,9 +57,9 @@ describe('Check database file type', function() {
         });
     });
 
-    describe(path.resolve(__dirname, '../database/GeoLiteCityv6.dat'), function() {
+    describe(path.resolve(__dirname, '../database/GeoLiteCityIPv6.dat'), function() {
         it('is city_v6 db', function(done) {
-            var file = path.resolve(__dirname, '../database/GeoLiteCityv6.dat');
+            var file = path.resolve(__dirname, '../database/GeoLiteCityIPv6.dat');
             var type = geoip.check(file);
 
             type.should.equal('city_v6');
@@ -67,9 +67,9 @@ describe('Check database file type', function() {
         });
     });
 
-    describe(path.resolve(__dirname, '../database/GeoIPOrg-111.dat'), function() {
+    describe(path.resolve(__dirname, '../database/GeoIPOrg.dat'), function() {
         it('is org db', function(done) {
-            var file = path.resolve(__dirname, '../database/GeoIPOrg-111.dat');
+            var file = path.resolve(__dirname, '../database/GeoIPOrg.dat');
             var type = geoip.check(file);
 
             type.should.equal('org');

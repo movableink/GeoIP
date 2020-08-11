@@ -1,8 +1,8 @@
 {
   "name": "@movable/geoip",
   "description": "GeoIP binding for node",
-  "version": "0.7.0",
-  "homepage": "http://github.com/kuno/GeoIP",
+  "version": "0.9.0",
+  "homepage": "http://github.com/movableink/GeoIP",
   "author": "Guan 'kuno' Qing <neokuno at Gmail dot com>",
   "contributors": [
     "Vladimir Dronnikov <dronnikov@gmail.com>",
@@ -29,10 +29,10 @@
     "Dan Kang <dann.kang@gmail.com>"
   ],
   "dependencies": {
-    "bindings": "~1.3.0",
+    "bindings": "~1.5.0",
     "debug": "~2.2.0",
     "is-object": "~1.0.1",
-    "nan": "~2.10.0"
+    "nan": "~2.14.1"
   },
   "devDependencies": {
     "chai": "~3.2.0",
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kuno/GeoIP.git"
+    "url": "git://github.com/movableink/GeoIP.git"
   },
   "keywords": [
     "geoip",
@@ -50,7 +50,7 @@
   ],
   "bugs": {
     "mail": "neokuno@gmail.com",
-    "url": "http://github.com/kuno/GeoIP/issues"
+    "url": "http://github.com/movableink/GeoIP/issues"
   },
   "license": "LGPL-2.1",
   "main": "index.js",
@@ -73,5 +73,8 @@
   "scripts": {
     "build": "make rebuild",
     "test": "node-gyp rebuild && mocha test/*.mocha.js"
+  },
+  "volta": {
+    "node": "14.7.0"
   }
 }

@@ -42,3 +42,19 @@ Since I am not a user of any product/service of maxmind, if you require this pac
 ##Usage
 
 See [usage doc](./USAGE.md).
+
+##Testing
+
+You'll need dummy maxmind files; you can get them via:
+
+```bash
+git clone https://github.com/maxmind/geoip-api-php.git database/php
+cd database
+ln -s php/tests/data/*.dat .
+```
+
+Then you can run tests with:
+
+```
+npm run test
+```

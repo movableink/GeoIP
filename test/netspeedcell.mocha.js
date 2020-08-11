@@ -59,9 +59,9 @@ describe('NetSpeedCell', function() {
             });
 
             it('should can find speed by ip address', function(done) {
-                var data = instance.lookupSync('151.42.234.143');
+                var data = instance.lookupSync('64.17.254.216');
                 data.should.be.a('string');
-                data.should.equal("Cable/DSL");
+                data.should.equal("Corporate");
                 setTimeout(done, 1);
             });
         });

@@ -26,7 +26,8 @@ namespace native {
             //size_t bc;
             //NanCString(info[0], &bc, file_cstr, size);
 
-            const char * file_cstr = *Nan::Utf8String(info[0]->ToString());
+            Nan::Utf8String utf8_value(info[0]);
+            const char * file_cstr = *utf8_value;
 
             GeoIP *db = GeoIP_open(file_cstr, GEOIP_STANDARD);
 
